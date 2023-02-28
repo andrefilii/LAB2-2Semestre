@@ -40,17 +40,27 @@ int main(int argc, char *argv[]) {
   assert(n0>0 && n1>=n0 && p>0);
   // creo una pipe di comunicazione tra genitori e figli
   int up[2]; // la chiamo up perchè la uso da figli a genitore
+  // quando viene passato a pipe(), l'array rappresenta gli identificatori
+  //  di due file di cui:
+  //  up[0] -> per la lettura
+  //  up[1] -> per la scrittura
+  // Le operazioni di lettura/scrittura sono ATOMICHE. siamo sicuri che
+  //  i dati vengano messi tutti inseieme senza essere cambiati da altri
+  //  processi che stanno lavorando sulla pipe
   xpipe(up,__LINE__,__FILE__);
   // generazione dei processi child
   for(int i=0;i<p;i++) {
     pid_t pid = xfork(__LINE__,__FILE__);
     if(pid==0) {// figlio
+      // è in scrittura quindi chiude il lato della lettura ([0])
       xclose(up[0],__LINE__,__FILE__);
       int n = (n1-n0)/p;  // quanti numeri verifica ogni figlio + o - 
       int start = n0 + n*i; // inizio range figlio i
       int end = (i==p-1) ? n1 : n0 + n*(i+1);  
       int tot = contap(start,end);
       printf("Figlio %d: cercato tra %d e %d, trovati %d primi\n",i,start,end,tot);
+      // Scrive dentro la pipe. Se è piena si mette in attesa
+      //  => LA WRITE E BLOCCANTE
       ssize_t e = write(up[1],&tot,sizeof(int));
       if(e!=sizeof(int)) termina("Errore scrittura pipe");
       xclose(up[1],__LINE__,__FILE__);
@@ -59,10 +69,14 @@ int main(int argc, char *argv[]) {
   }
   // qui arriva solo il genitore 
   int tot=0;
+  // il padre è in lettura quindi chiude il lato della scrittura ([1])
+  //  se NON ci fosse IL PADRE ASPETTEREBBE SE STESSO ALL'INFINTIO
   xclose(up[1],__LINE__,__FILE__);
   // leggo fino a quando tutti non hanno chiuso up[1]
   while(true) {
     int x;
+    // LA READ E BLOCCANTE => restituisce 0 solo se ha letto e non c'era niente, quindi quando
+    //  il file di scrittura viene chiuso da tutti i figli
     ssize_t e = read(up[0],&x,sizeof(int));
     if(e==0) break;
     tot += x;

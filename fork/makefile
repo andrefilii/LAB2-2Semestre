@@ -1,8 +1,8 @@
 # definizione del compilatore e dei flag di compilazione
 # che vengono usate dalle regole implicite
 CC=gcc
-CFLAGS=-std=c11 -Wall -g
-LDLIBS=-lm
+CFLAGS=-std=c11 -Wall -g -pthread
+LDLIBS=-lm -lrt -lpthread
 
 
 # su https://www.gnu.org/software/make/manual/make.html#Implicit-Rules
@@ -21,6 +21,8 @@ EXECS=fork0 moria
 # primo target: gli eseguibili sono precondizioni
 # quindi verranno tutti creati
 all: $(EXECS) 
+
+.PHONY: clean
 
 moria: moria.o xerrori.o
 

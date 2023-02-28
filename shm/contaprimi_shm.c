@@ -26,11 +26,27 @@ int main(int argc,char *argv[])
   pid_t salvapid[p]; // array per salvare i pid dei figli 
 
   // ---- creazione array memoria condivisa
-  int shm_size = p*sizeof(int); // un intero x processo
+  int shm_size = p*sizeof(int); // un intero per ogni processo
+
+  // Nome -> nome oggetto di memoria condivisa, devono avere la struttura "/<nome>"
+  // O_RDWR -> voglio accederci sia in lettura che scrittura (NECESSARIO)
+  // O_CREAT -> se non esiste lo deve creare
+  // 0660 -> permessi su quel file
   int fd = xshm_open(Nome,O_RDWR | O_CREAT, 0660,__LINE__,__FILE__);
+
+  // quando viene creata, la shared memory ha dimensione 0
+  //  truncate permette di definire la dimensione di cui ho bisogno
+  //  Se è più grande lo tronca, se è troppo piccolo lo ingrandisce
   xftruncate(fd, shm_size, __LINE__,__FILE__);
+
+  // simple_mmap è una semplificazione della mmap (meno parametri della realtà)
+  //  Fa diventare l'array a un'immagine del file indicato da fd. Permette di utilizzarlo
+  //  al posto del file
   int *a = simple_mmap(shm_size,fd, __LINE__,__FILE__);
   close(fd); // dopo mmap e' possibile chiudere il file descriptor
+
+  // se qualcuno ha mappato l'oggetto Nome all'interno di un processo, la distruzione
+  //  va in attesa che tutti i processi smettano di usarlo
   xshm_unlink(Nome,__LINE__, __FILE__); // prenota distruzione shm quando finito
 
   // creazione processi figlio
@@ -42,11 +58,12 @@ int main(int argc,char *argv[])
       int n = m/p;  // quanti numeri verifica ogni figlio + o - 
       int start = n*i; // inizio range figlio i
       int end = (i==p-1) ? m : n*(i+1);
-			a[i]=0;        
+			a[i]=0; // posizione dell'array assegnata al figlio i-esimo (in realtà si potrebbe scrivere ovunque essendo shared mem)
       for(int j=start;j<end;j++)
-        if(primo(j)) a[0] += 1;
+        if(primo(j)) a[i] += 1; // usare un'unica variabile per tutti non potrebbe funzionare in questo modo perchè non essendo atomico potrebbe sovrascrivere dati
       fprintf(stderr,"Processo %d terminato dopo avere trovato %d primi\n",i,a[i]);
-      // unmap memoria condivisa perchè ho finito di usarla
+
+      // unmap memoria condivisa perchè ho finito di usarla. Serve per la unlink
       xmunmap(a,shm_size,__LINE__, __FILE__);
       exit(0);
     }

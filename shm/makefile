@@ -2,7 +2,7 @@
 # che vengono usate dalle regole implicite
 CC=gcc
 CFLAGS=-std=c11 -Wall -g -O -pthread
-LDLIBS=-lm -lrt
+LDLIBS=-lm -lrt -lpthread
 
 
 # su https://www.gnu.org/software/make/manual/make.html#Implicit-Rules
@@ -22,6 +22,9 @@ EXECS=shm0.out contaprimi_shm.out sort_shm.out contaprimi_sem.out sommaprimi.out
 # quindi verranno tutti creati
 all: $(EXECS) 
 
+# Per far eseguire il make clean facendo ignorare eventuali file chiamati "clean" (che farebbero dire up to date)
+# devo mettere il seguente comando
+.PHONY: clean
 
 # regola per la creazioni degli eseguibili utilizzando xerrori.o
 %.out: %.o xerrori.o

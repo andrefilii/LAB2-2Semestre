@@ -1,32 +1,13 @@
 #include "xerrori.h"
 
+
 // conteggio dei primi con piu' processi utilizzando
-// una singola variabile condivisa il cui accesso è
-// regolato dal semaforo Nome
-
-// un secondo semaforo Nome2 è utilizzato per permettere
-// al processo padre di stabilire quando tutti i processi 
-// ausiliari hanno terminato il calcolo dei primi 
-
-// NOTA: questo programma ha solo interesse didattico:
-// dal punto di vista delle prestazionei è una pessima idea 
-// utilizzare una sola variabile condivisa a cui i processi 
-// accedono continuamente. 
-
-// Inoltre in questo caso i processi figli non fanno altre 
-// operazioni dopo il calcolo dei primi quindi il meccanismo 
-// della wait nel processo padre si potrebbe utilizzare
-
-// La soluzione in contaprimi_shm.c è quindi preferibile
+// un array condiviso che viene utilizzato dai figli
+// per restituire il proprio valore al genitore
 
 
-
-// nomi della shared memory e dei semafori
-// ai nomi dei semafori viene automaticamente
-// aggiunto il prefisso .sem
+// nome della shared memory 
 #define Nome "/contaprimi"
-#define Nome2 "/contaprimi2"
-
 
 //Prototipi
 bool primo(int n);
@@ -42,66 +23,63 @@ int main(int argc,char *argv[])
   if(m<1) termina("limite primi non valido");
   int p= atoi(argv[2]);
   if(p<=0) termina("numero di processi non valido");
+  pid_t salvapid[p]; // array per salvare i pid dei figli 
 
   // ---- creazione array memoria condivisa
-  int shm_size = sizeof(int); // uso solo 4 byte di memoria condivisa (a[0])
+  int shm_size = p*sizeof(int); // un intero per ogni processo
+
+  // Nome -> nome oggetto di memoria condivisa, devono avere la struttura "/<nome>"
+  // O_RDWR -> voglio accederci sia in lettura che scrittura (NECESSARIO)
+  // O_CREAT -> se non esiste lo deve creare
+  // 0660 -> permessi su quel file
   int fd = xshm_open(Nome,O_RDWR | O_CREAT, 0660,__LINE__,__FILE__);
+
+  // quando viene creata, la shared memory ha dimensione 0
+  //  truncate permette di definire la dimensione di cui ho bisogno
+  //  Se è più grande lo tronca, se è troppo piccolo lo ingrandisce
   xftruncate(fd, shm_size, __LINE__,__FILE__);
+
+  // simple_mmap è una semplificazione della mmap (meno parametri della realtà)
+  //  Fa diventare l'array a un'immagine del file indicato da fd. Permette di utilizzarlo
+  //  al posto del file
   int *a = simple_mmap(shm_size,fd, __LINE__,__FILE__);
   close(fd); // dopo mmap e' possibile chiudere il file descriptor
-  xshm_unlink(Nome,__LINE__, __FILE__); // distrugge shm quando finito
-  
-  // ---- creo il semaforo
-  sem_t *sem_a0 = xsem_open(Nome,O_CREAT|O_EXCL,0666,1,
-                   __LINE__, __FILE__);
-  xsem_unlink(Nome,__LINE__, __FILE__); // distrugge sem quando finito  
-  // ---- creo il secondo semaforo
-  sem_t *sem_finito = xsem_open(Nome2,O_CREAT|O_EXCL,0666,0,
-                   __LINE__, __FILE__);
-  xsem_unlink(Nome2,__LINE__, __FILE__); // distrugge sem quando finito
 
-  
+  // se qualcuno ha mappato l'oggetto Nome all'interno di un processo, la distruzione
+  //  va in attesa che tutti i processi smettano di usarlo
+  xshm_unlink(Nome,__LINE__, __FILE__); // prenota distruzione shm quando finito
+
   // creazione processi figlio
-  *a = 0;  // variabile condivisa
   for(int i=0; i<p; i++) {
     pid_t pid= xfork(__LINE__, __FILE__);
-    if(pid==0) { //processo figlio
+    if(pid!=0) 
+      salvapid[i] = pid;  // processo padre salva il pid del figlio
+    else { //processo figlio
       int n = m/p;  // quanti numeri verifica ogni figlio + o - 
       int start = n*i; // inizio range figlio i
       int end = (i==p-1) ? m : n*(i+1);
+			a[i]=0; // posizione dell'array assegnata al figlio i-esimo (in realtà si potrebbe scrivere ovunque essendo shared mem)
       for(int j=start;j<end;j++)
-        if(primo(j)) {
-          // aspetta che il semaforo sia 1
-          xsem_wait(sem_a0,__LINE__, __FILE__);
-          *a += 1;
-          // riporta il semaforo a 1
-          xsem_post(sem_a0,__LINE__, __FILE__); 
-        }
-      fprintf(stderr,"Il processo %d ha terminato il conto\n",i);
-      // unmap memoria condivisa perchè ho finito di usarla
+        if(primo(j)) a[i] += 1; // usare un'unica variabile per tutti non potrebbe funzionare in questo modo perchè non essendo atomico potrebbe sovrascrivere dati
+      fprintf(stderr,"Processo %d terminato dopo avere trovato %d primi\n",i,a[i]);
+
+      // unmap memoria condivisa perchè ho finito di usarla. Serve per la unlink
       xmunmap(a,shm_size,__LINE__, __FILE__);
-      // segnala al processo padre che questo processo ha finito 
-      xsem_post(sem_finito,__LINE__, __FILE__);
-      // chiude i semafori perché non li usa più 
-      xsem_close(sem_a0,__LINE__, __FILE__);
-      xsem_close(sem_finito,__LINE__, __FILE__);
-      // dormo per un'ora (per mostrare che il genitore non ha bisogno che i figli terminino)
-      sleep(3600); 
       exit(0);
     }
   }
-  
   // codice processo padre
-  // aspetta che tutti i figli abbiano fatto la post su sem_finito 
-  for(int i=0; i<p; i++) 
-    xsem_wait(sem_finito,__LINE__, __FILE__);
+  // aspetta che abbiano finito i figli: 
+  for(int i=0; i<p; i++)  
+    // esempio di uso della waitpid, andava bene anche la wait
+    if(waitpid(salvapid[i],NULL,0)<0)
+       xtermina("Errore waitpid",__LINE__, __FILE__);
     
   // calcola e restituisce il risultato 
-  printf("Numero primi tra 1 e %d (escluso): %d\n",m,*a);
+  int conta = 0;
+  for(int i=0; i<p; i++) conta += a[i];
+  printf("Numero primi tra 1 e %d (escluso): %d\n",m,conta);
   
-  // chiude i semafori
-  xsem_close(sem_a0,__LINE__, __FILE__);
-  xsem_close(sem_finito,__LINE__, __FILE__);
   // unmap memoria condivisa e termina
   xmunmap(a,shm_size,__LINE__, __FILE__);
   return 0;

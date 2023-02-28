@@ -1,8 +1,8 @@
 # definizione del compilatore e dei flag di compilazione
 # che vengono usate dalle regole implicite
 CC=gcc
-CFLAGS=-std=c11 -Wall -g -O
-LDLIBS=-lm
+CFLAGS=-std=c11 -Wall -g -O -pthread
+LDLIBS=-lm -lrt -lpthread
 
 
 # su https://www.gnu.org/software/make/manual/make.html#Implicit-Rules
@@ -22,6 +22,7 @@ EXECS=contaprimi.out npipe.out lettore.out
 # quindi verranno tutti creati
 all: $(EXECS) 
 
+.PHONY: clean
 
 # regola per la creazioni degli eseguibili utilizzando xerrori.o
 %.out: %.o xerrori.o
