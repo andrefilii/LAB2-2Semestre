@@ -1,5 +1,7 @@
 #include "xerrori.h"
 
+/* VERSIONE CONTAPRIMI SENZA SEMAFORI USANDO SOMME PARZIALI */
+
 // conteggio dei primi con thread multipli
 
 // NOTA: questo programma ha solo interesse didattico!
@@ -17,11 +19,9 @@ bool primo(int n);
 
 // struct che uso per passare argomenti ai thread
 typedef struct {
-	int start;   // intervallo dove cercare i primo 
-	int end;
-  sem_t *a0;   // puntatore al semaforo a0x
-  sem_t *finito;  // puntatore al semaforo finitox
-  int *somma;  // puntatore alla somma condivisa 
+	int start;   // parametro di input, intervallo dove cercare i primo 
+	int end;     // parametro di input
+  int somma_parziale; // parametro di output
 } dati;
 
 // funzione passata a pthred_create
@@ -30,19 +30,15 @@ typedef struct {
 //  con l'uso della memoria
 void *tbody(void *v) {
 	dati *d = (dati *) v;
+  // variabile locale del thread. Ogni thread ha uno stack separato.
+  //  quindi posso usarla senza dover usare semafori
+  int somma = 0;
 	// cerco i primi nell'intervallo assegnato
 	for(int j=d->start;j<d->end;j++) {
-        if(primo(j)) {
-          // aspetta che il semaforo sia 1
-					xsem_wait(d->a0,__LINE__, __FILE__);
-          *(d->somma) += 1;
-          // riporta il semaforo a 1
-					xsem_post(d->a0,__LINE__, __FILE__);	
-        }
+        if(primo(j)) somma++;
 	}
   fprintf(stderr,"Il thread che partiva da %d ha terminato\n",d->start);
-  // segnala al processo padre che questo processo ha finito 
-	xsem_post(d->finito,__LINE__, __FILE__);
+  d->somma_parziale = somma;
   pthread_exit(NULL);
 }
 
@@ -59,15 +55,6 @@ int main(int argc,char *argv[])
   int p= atoi(argv[2]);
   if(p<=0) termina("numero di thread non valido");
 
-  // ---- creo i semafori
-  // come per le pipe, essendo comunicazioni tra thread/padre-figli, posso creare
-  //  semafori senza nome con sem_init
-	sem_t sem_a0x, sem_finitox;
-  // inizalizzo sem_a0x per l'aggiornamento della somma tra thread
-	xsem_init(&sem_a0x,0,1,__LINE__, __FILE__);
-  // init sem_finito che serve al padre per tenere il conto di tutti i thread che hanno finito
-  //  per poi stampare il risultato corretto
-	xsem_init(&sem_finitox,0,0,__LINE__, __FILE__);
 
   // creazione thread ausiliari
   pthread_t t[p];   // array di p indentificatori di thread 
@@ -82,18 +69,18 @@ int main(int argc,char *argv[])
     int n = m/p;  // quanti numeri verifica ogni figlio + o - 
     d[i].start = n*i; // inizio range figlio i
     d[i].end = (i==p-1) ? m : n*(i+1);
-    // la parte della somma è uguale per ogni thread, quindi devo gestire l'acccesso
-    //  con dei semafori. Quindi il semaforo a0 serve per aggiornare la variabile comune somma
-    // Mentre il sem finito serve al padre per stampare la somma finale
-		d[i].a0 = &sem_a0x;
-		d[i].finito = &sem_finitox;
-		d[i].somma = &somma;
+    // salvo nell'array t gli identificatori dei thread appena creati. Servirà poi nelle join
     if(pthread_create(&t[i], NULL, &tbody, &d[i])!=0)
-			termina("Errore creazione thread"); 
+			termina("Errore creazione thread");
   }
-  // aspetta che abbiano finito tutti i figli: 
-  for(int i=0; i<p; i++) 
-		xsem_wait(&sem_finitox,__LINE__, __FILE__);
+  // attendo che i thread abbiano finito
+  for(int i=0; i<p; i++) {
+    // la funzione è BLOCCANTE, si ferma finchè il t[i] thread non fa la pthread_exit()
+    xpthread_join(t[i], NULL, __LINE__, __FILE__);
+    // una volta che sono sicuro che l'i-esimo t. abbia finito
+    // posso aggiungere il suo risultato al totale
+    somma += d[i].somma_parziale;
+  }
     
   // restituisce il risultato 
   printf("Numero primi tra 1 e %d (escluso): %d\n",m,somma);
