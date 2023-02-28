@@ -16,7 +16,7 @@ LDLIBS=-lm -lrt -lpthread
 #  $^ viene sostituito con tutti i prerequisiti
 
 # elenco degli eseguibili da creare
-EXECS=contaprimi.out
+EXECS=contaprimi.out contaprimi2.out
 
 # primo target: gli eseguibili sono precondizioni
 # quindi verranno tutti creati
