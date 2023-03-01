@@ -2,7 +2,7 @@
 # che vengono usate dalle regole implicite
 CC=gcc
 CFLAGS=-std=c11 -Wall -g -O -pthread
-LDLIBS=-lm -lrt -lpthread
+LDLIBS=-lm -lrt -lpthread -pthread
 
 
 # su https://www.gnu.org/software/make/manual/make.html#Implicit-Rules
