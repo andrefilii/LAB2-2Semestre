@@ -12,7 +12,7 @@
 // Inoltre in questo caso i thread ausiliari non fanno altre 
 // operazioni dopo il calcolo dei primi quindi il meccanismo 
 // della join si potrebbe utilizzare per comunicare
-// la terminazione al thread principale
+// la terminazione al thread principale 
 
 //Prototipi
 bool primo(int n);
