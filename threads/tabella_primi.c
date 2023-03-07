@@ -76,7 +76,7 @@ int main(int argc,char *argv[])
 
   // Creazione del mutex UNICO per tutti i thread
   //  Viene inizializzato con una macro che richiama la init() con parametri di default
-  pthread_mutex_t mtabella = PTHREAD_MUTEX_INITIALIZER;
+  // pthread_mutex_t mtabella = PTHREAD_MUTEX_INITIALIZER;
 
   for(int i=0; i<p; i++) {
     int n = m/p;  // quanti numeri verifica ogni figlio + o - 

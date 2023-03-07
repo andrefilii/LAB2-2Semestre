@@ -33,37 +33,45 @@ typedef struct {
   long somma;   // output
   int *buffer; 
   int *pcindex; // variabile condivisa dai thread per scorrere il buffer
-  pthread_mutex_t* pmutex; // mutex condiviso fra consumatore
+  pthread_mutex_t* pmutex_buffer; // mutex condiviso fra consumatori per accesso al buffer
+  pthread_mutex_t* pmutex_file; // mutex per acceso al file
   sem_t *sem_free_slots;
   sem_t *sem_data_items;  
-} dati;
+  FILE *outfile;
+} dati_consumatori;
 
 
 
 // funzione eseguita dai thread consumer
-void *tbody(void *arg)
+void *cbody(void *arg)
 {  
-  dati *a = (dati *)arg; 
+  dati_consumatori *a = (dati_consumatori *)arg; 
   a->quanti = 0;
   a->somma = 0;
   int n;
   do {
-    // Il semaforo serve a risolvere eventuali conflitti tra
-    //  consumatore-produttore, ma non serve per conflitti
-    //  cons-cons o prod-pro. Per quello servono i MUTEX
+
+    // accesso al buffer
     xsem_wait(a->sem_data_items,__LINE__,__FILE__);
-    xpthread_mutex_lock(a->pmutex,__LINE__,__FILE__);
+    xpthread_mutex_lock(a->pmutex_buffer,__LINE__,__FILE__);
     n = a->buffer[*(a->pcindex) % Buf_size];
     *(a->pcindex) +=1;
-    xpthread_mutex_unlock(a->pmutex,__LINE__,__FILE__);
+    xpthread_mutex_unlock(a->pmutex_buffer,__LINE__,__FILE__);
     xsem_post(a->sem_free_slots,__LINE__,__FILE__);
-    if(n>0 && primo(n)) {
-      a->quanti++;
-      a->somma += n;
-    }
+    
+    int div = divisori(n);
+
+    // scrittura su file
+    xpthread_mutex_lock(a->pmutex_file,__LINE__,__FILE__);
+    fprintf(a->outfile, "%d %d\n", n, div);
+    xpthread_mutex_unlock(a->pmutex_file,__LINE__,__FILE__);
   } while(n!= -1);
   pthread_exit(NULL); 
-}     
+}
+
+void *pbody(void *arg) {
+
+}
 
 
 int main(int argc, char *argv[])
@@ -84,7 +92,7 @@ int main(int argc, char *argv[])
   int cindex = 0;
   pthread_mutex_t mu = PTHREAD_MUTEX_INITIALIZER;
   pthread_t t[p];
-  dati a[p];
+  dati_consumatori a[p];
   sem_t sem_free_slots, sem_data_items;
   xsem_init(&sem_free_slots,0,Buf_size,__LINE__,__FILE__);
   xsem_init(&sem_data_items,0,0,__LINE__,__FILE__);
@@ -92,10 +100,10 @@ int main(int argc, char *argv[])
     // faccio partire il thread i
     a[i].buffer = buffer;
     a[i].pcindex = &cindex; // variabile condivisa
-    a[i].pmutex = &mu;
+    a[i].pmutex_buffer = &mu;
     a[i].sem_data_items = &sem_data_items;
     a[i].sem_free_slots = &sem_free_slots;
-    xpthread_create(&t[i],NULL,tbody,a+i,__LINE__,__FILE__);
+    xpthread_create(&t[i],NULL,cbody,a+i,__LINE__,__FILE__);
   }
 
 
