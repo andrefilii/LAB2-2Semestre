@@ -3,7 +3,7 @@
 // costruzione di una tabella di primi con thread multipli
 
 // questo programma è stato ottenuto partendo da
-// comtaprimi2.c aggiungendo la gesxtione di una tabella
+// contaprimi2.c aggiungendo la gesxtione di una tabella
 
 /*
   I mutex (mutual exclusion) permettono, come dice il nome, di ottenere l'esecuzione sequenziale
@@ -12,8 +12,9 @@
 
   Si comportano come semafori binare: possono avere valore 1/0 (lock/unlock) ma la differenza è che mentre i semafori
   possono far fare la post() a chiunque, i mutex possono essere UNLOCKATI solo da thread che li aveva precedentemente lockati.
-
 */
+
+#define QUI __LINE__, __FILE__
 
 //Prototipi
 bool primo(int n);
@@ -23,9 +24,9 @@ typedef struct {
   int start;            // intervallo dove cercare i primo 
   int end;              // parametri di input
   int somma_parziale;   // parametro di output
-  int* tabella;         // puntatore alla tabella dove inserire i primi
-  int* messi;            // contatore del totale dei primi messi
-  pthread_mutex_t *mutex_tab; // mutex condiviso fra tutti i thread per aggiornare tabella e "messi"
+  int *tabella;         // tabella dei numeri primi da riempire
+  int *pmessi;          // puntatore a indice in tabella
+  pthread_mutex_t *pmutex; // mutex condiviso
 } dati;
 
 // funzione passata a pthred_create
@@ -34,19 +35,17 @@ void *tbody(void *v) {
   d->somma_parziale = 0;
   // cerco i primi nell'intervallo assegnato
   for(int j=d->start;j<d->end;j++)
-      if(primo(j)){
-        d->somma_parziale += j;
-
-        // il thread blocca il mutex per avere le operazioni fatte in modo ATOMICO
-        // Differenza con il semaforo: IL MUTEX PUO ESSERE SBLOCCATO SOLO DAL THREAD CHE HA FATTO LA LOCK
-        // Lavorando sulle stesse variabili il mutex sarà uguale per tutti i thread
-        // Nota su xpthread_...() : fa il controllo sugli errori:
-        //  0 -> tutto bene
-        //  altro -> errore
-        xpthread_mutex_lock(d->mutex_tab, __LINE__, __FILE__);
-        d->tabella[*(d->messi)] = j;
-        *(d->messi) += 1;
-        xpthread_mutex_unlock(d->mutex_tab, __LINE__, __FILE__);
+      // il thread blocca il mutex per avere le operazioni fatte in modo ATOMICO
+      // Differenza con il semaforo: IL MUTEX PUO ESSERE SBLOCCATO SOLO DAL THREAD CHE HA FATTO LA LOCK
+      // Lavorando sulle stesse variabili il mutex sarà uguale per tutti i thread
+      // Nota su xpthread_...() : fa il controllo sugli errori:
+      //  0 -> tutto bene
+      //  altro -> errore
+      if(primo(j)) {
+        xpthread_mutex_lock(d->pmutex,QUI);
+        d->tabella[*(d->pmessi)] = j;
+        *(d->pmessi) += 1;
+        xpthread_mutex_unlock(d->pmutex,QUI);
       }
   fprintf(stderr, "Il thread che partiva da %d ha terminato\n", d->start);
   pthread_exit(NULL);
@@ -64,6 +63,9 @@ int main(int argc,char *argv[])
   int p= atoi(argv[2]);
   if(p<=0) termina("numero di thread non valido");
 
+  // definizione mutex
+  pthread_mutex_t mtabella;
+  xpthread_mutex_init(&mtabella,NULL,QUI);
   // creazione thread ausiliari
   pthread_t t[p];   // array di p indentificatori di thread 
   dati d[p];        // array di p struct che passerò allle p thread
@@ -80,9 +82,9 @@ int main(int argc,char *argv[])
     int n = m/p;  // quanti numeri verifica ogni figlio + o - 
     d[i].start = n*i; // inizio range figlio i
     d[i].end = (i==p-1) ? m : n*(i+1);
-    d[i].mutex_tab = &mtabella;
     d[i].tabella = tabella;
-    d[i].messi = &messi; // serve il puntatore perchè la variabile è condivisa fra tutti (è il conto totale dei primi messi)
+    d[i].pmessi = &messi; // serve il puntatore perchè la variabile è condivisa fra tutti (è il conto totale dei primi messi)
+    d[i].pmutex = &mtabella;
     xpthread_create(&t[i], NULL, &tbody, &d[i],__LINE__, __FILE__); 
   }
   // attendo che i thread abbiano finito
@@ -91,6 +93,7 @@ int main(int argc,char *argv[])
     xpthread_join(t[i],NULL,__LINE__, __FILE__);
     somma += d[i].somma_parziale;
   }
+  xpthread_mutex_destroy(&mtabella,QUI);
   // stampa tabella
   for(int i=0;i<messi;i++)  printf("%8d",tabella[i]);
   printf("\nPrimi in tabella: %d\n",messi);
