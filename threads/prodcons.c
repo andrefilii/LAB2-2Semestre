@@ -14,6 +14,7 @@
  * */
 #include "xerrori.h"
 
+#define QUI __LINE__,__FILE__
 #define Buf_size 10
 
 
@@ -38,8 +39,6 @@ typedef struct {
   sem_t *sem_data_items;  
 } dati;
 
-
-
 // funzione eseguita dai thread consumer
 void *tbody(void *arg)
 {  
@@ -47,21 +46,23 @@ void *tbody(void *arg)
   a->quanti = 0;
   a->somma = 0;
   int n;
+  puts("consumatore partito");
   do {
     // Il semaforo serve a risolvere eventuali conflitti tra
     //  consumatore-produttore, ma non serve per conflitti
     //  cons-cons o prod-pro. Per quello servono i MUTEX
     xsem_wait(a->sem_data_items,__LINE__,__FILE__);
-    xpthread_mutex_lock(a->pmutex,__LINE__,__FILE__);
+    xpthread_mutex_lock(a->pmutex,QUI);
     n = a->buffer[*(a->pcindex) % Buf_size];
     *(a->pcindex) +=1;
-    xpthread_mutex_unlock(a->pmutex,__LINE__,__FILE__);
+    xpthread_mutex_unlock(a->pmutex,QUI);
     xsem_post(a->sem_free_slots,__LINE__,__FILE__);
     if(n>0 && primo(n)) {
       a->quanti++;
       a->somma += n;
     }
   } while(n!= -1);
+  puts("Consumatore sta per finire");
   pthread_exit(NULL); 
 }     
 
@@ -73,15 +74,14 @@ int main(int argc, char *argv[])
     printf("Uso\n\t%s file\n", argv[0]);
     exit(1);
   }
-  int p = 1;
+  int p = 3;
   assert(p>=0);
   int tot_primi = 0;
   long tot_somma = 0;
-  int e,n;    
+  int e,n,cindex=0;    
   // threads related
   int buffer[Buf_size];
-  int pindex = 0;
-  int cindex = 0;
+  int pindex=0;
   pthread_mutex_t mu = PTHREAD_MUTEX_INITIALIZER;
   pthread_t t[p];
   dati a[p];
@@ -91,14 +91,13 @@ int main(int argc, char *argv[])
   for(int i=0;i<p;i++) {
     // faccio partire il thread i
     a[i].buffer = buffer;
-    a[i].pcindex = &cindex; // variabile condivisa
+    a[i].pcindex = &cindex;
     a[i].pmutex = &mu;
     a[i].sem_data_items = &sem_data_items;
     a[i].sem_free_slots = &sem_free_slots;
     xpthread_create(&t[i],NULL,tbody,a+i,__LINE__,__FILE__);
   }
-
-
+  puts("Thread ausiliari creati");
   // leggi file 
   FILE *f = fopen(argv[1],"r");
   if(f==NULL) {perror("Errore apertura file"); return 1;}
@@ -110,6 +109,7 @@ int main(int argc, char *argv[])
     buffer[pindex++ % Buf_size]= n;
     xsem_post(&sem_data_items,__LINE__,__FILE__);
   }
+  puts("Dati del file scritti");
   // terminazione threads
   for(int i=0;i<p;i++) {
     xsem_wait(&sem_free_slots,__LINE__,__FILE__);
@@ -117,6 +117,7 @@ int main(int argc, char *argv[])
     buffer[pindex++ % Buf_size]= -1;
     xsem_post(&sem_data_items,__LINE__,__FILE__);
   }
+  puts("Valori di terminazione scritti");
   // join dei thread e calcolo risulato
   for(int i=0;i<p;i++) {
     // aspetta che l'i-esimo thread abbia finito
@@ -124,7 +125,7 @@ int main(int argc, char *argv[])
     tot_primi += a[i].quanti;
     tot_somma += a[i].somma;
   }
-  xpthread_mutex_destroy(&mu,__LINE__,__FILE__);
+  pthread_mutex_destroy(&mu);
   fprintf(stderr,"Trovati %d primi con somma %ld\n",tot_primi,tot_somma);
   return 0;
 }
