@@ -12,7 +12,7 @@
  * il produttore rimanga bloccato (ad esempio a leggere dal disco)
  * 
  * */
-#include "xerrori.h"
+#include "../xerrori.h"
 
 #define Buf_size 10
 
