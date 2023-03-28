@@ -31,13 +31,23 @@ int main(int argc, char *argv[])
   struct sigaction sa;
   sa.sa_handler = &handler;
   // setta sa.sa_mask che è la maschera di segnali da bloccare
-  // durante l'esecuzione di handler(). Blocca tutti i segnali
+  //  durante l'esecuzione di handler(). Blocca tutti i segnali
   sigfillset(&sa.sa_mask);
-  // sigdelset(&sa.sa_mask,SIGUSR1);  // tranne SIGUSR1
+  sigdelset(&sa.sa_mask,SIGUSR1);  // tranne SIGUSR1
+
+  // le syscall non possono di solito essere interrotte da dei
+  //  segnali, ma nel caso siano in attesa (es. attesa del disco)
+  //  si, in questo caso alla fine del segnale la syscall potrebbe
+  //  non ripartire quindi si specifica che vogliamo che alla fine
+  //  del segnale riparta la syscall in attesa
   sa.sa_flags = SA_RESTART;     // restart system calls 
   sigaction(SIGUSR1,&sa,NULL);  // handler per USR1
   sigaction(SIGUSR2,&sa,NULL);  // stesso handler per USR2
-  sigaction(SIGINT,&sa,NULL);   // stesso handler per Control-C
+
+  // permette di salvare l'attuale configurazione di SIGINT in una
+  //  struct prima di essere sovrascritta dall'altra azione
+  struct sigaction oldsa;
+  sigaction(SIGINT,&sa,&oldsa);   // stesso handler per Control-C
 
   // visualizza il pid
   printf("Se vuoi mandarmi dei segnali il mio pid e': %d\n", getpid());
@@ -50,7 +60,11 @@ int main(int argc, char *argv[])
     // sleep(1000);   
     // puts("Mi sono svegliato");            
   } while(continua); 
-  printf("Ricevuti: %d segnali\n", tot_segnali);   
+  printf("Ricevuti: %d segnali\n", tot_segnali);
+
+  // in questo modo rimetto la vecchia gestione di SIGINT prima che fosse
+  //  sovrascritta da sa
+  sigaction(SIGINT,&oldsa,NULL);
   return 0;
 }
 

@@ -53,3 +53,5 @@ dkms.conf
 
 fork/fork0
 fork/moria
+
+.vscode
