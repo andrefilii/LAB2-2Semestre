@@ -1,0 +1,618 @@
+[34mProduttore partito[0m
+[34mProduttore partito[0m
+[33mThread produttori creati
+[33mThread consumatore creato
+[34mProduttore partito[0m
+[34mProduttore partito[0m
+[34m	Coppia letta da file: 64 10
+[0m[34m	GCD calcolato: 2
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 61 27
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 49 13
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 58 63
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 20 59
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 85 28
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 37 10
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 24 47
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 29 38
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 27 81
+[0m[34m	GCD calcolato: 27
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 41 79
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 16 32
+[0m[34m	GCD calcolato: 16
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 14 97
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 53 10
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 5 55
+[0m[34m	GCD calcolato: 5
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 1 22
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 92 59
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 20 27
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 93 32
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 39 66
+[0m[34m	GCD calcolato: 3
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 66 31
+[0m[34m	GCD calcolato: 1
+[0m[35mConsumatore partito[0m
+[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 64 96
+[0m[34m	GCD calcolato: 32
+[0m[35m	Valore letto da buffer: 2
+[35m		Valore inserito nell'array: 2
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 32 41
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 87 10
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 27
+[35m		Valore inserito nell'array: 27
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 16
+[35m		Valore inserito nell'array: 16
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 5
+[35m		Valore inserito nell'array: 5
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 3
+[35m		Valore inserito nell'array: 3
+[0m[35m	Valore letto da buffer: 1
+[34m	Coppia letta da file: 72 99
+[0m[34m	GCD calcolato: 9
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 76 55
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 94 21
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 43 92
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 16 8
+[0m[34m	GCD calcolato: 8
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 73 68
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 98 47
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 82 33
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 92 72
+[0m[34m	GCD calcolato: 4
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 23 68
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 86 38
+[0m[34m	GCD calcolato: 2
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 33 51
+[0m[34m	GCD calcolato: 3
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 67 84
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 14 59
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 47 26
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 4 67
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 60 11
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 91 46
+[0m[34m	GCD calcolato: 1
+[0m[35m		Valore inserito nell'array: 1
+[0m[34m	Coppia letta da file: 42 78
+[0m[34m	GCD calcolato: 6
+[0m[34m	Coppia letta da file: 2 91
+[0m[34m	GCD scritto nel buffer[0m
+[34m	GCD calcolato: 1
+[0m[34m	Coppia letta da file: 84 60
+[0m[34m	GCD calcolato: 12
+[0m[34m	Coppia letta da file: 90 56
+[0m[34m	GCD calcolato: 2
+[0m[35m	Valore letto da buffer: 32
+[35m		Valore inserito nell'array: 32
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 53 43
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 63 52
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 79 15
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 9
+[35m		Valore inserito nell'array: 9
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 85 34
+[0m[34m	GCD calcolato: 17
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 41 91
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 23 30
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 1 2
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 8
+[35m		Valore inserito nell'array: 8
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 19 12
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 5 3
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 81 47
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 71 76
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 4
+[35m		Valore inserito nell'array: 4
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 29 19
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 50 63
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 2
+[35m		Valore inserito nell'array: 2
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 70 61
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 3
+[35m		Valore inserito nell'array: 3
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 93 26
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 76 78
+[0m[34m	GCD calcolato: 2
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 94 66
+[0m[34m	GCD calcolato: 2
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 28 29
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 35 52
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 19 67
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 6
+[35m		Valore inserito nell'array: 6
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 47 6
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 33 85
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 2
+[35m		Valore inserito nell'array: 2
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 5 44
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 68 50
+[0m[34m	GCD calcolato: 2
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[35m	Valore letto da buffer: 17
+[35m		Valore inserito nell'array: 17
+[0m[34m	Coppia letta da file: 4 17
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 57 54
+[0m[34m	GCD calcolato: 3
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 83 11
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 49 25
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 2 73
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 50 38
+[0m[34m	GCD calcolato: 2
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 27 71
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 33 21
+[0m[34m	GCD calcolato: 3
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 69 64
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 96 9
+[0m[34m	GCD calcolato: 3
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 34 31
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 22 62
+[0m[34m	GCD calcolato: 2
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 59 72
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 2
+[35m		Valore inserito nell'array: 2
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 20 22
+[0m[34m	GCD calcolato: 2
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 76 43
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 2
+[35m		Valore inserito nell'array: 2
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 28 45
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 98 38
+[0m[34m	GCD calcolato: 2
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 63 29
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 75 55
+[0m[34m	GCD calcolato: 5
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 11 57
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 77 1
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 14 40
+[0m[34m	GCD calcolato: 2
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 19 63
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 5 28
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 2
+[35m		Valore inserito nell'array: 2
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 72 31
+[0m[34m	GCD calcolato: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	Coppia letta da file: 72 57
+[0m[34m	GCD calcolato: 3
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 27 27
+[0m[34m	GCD calcolato: 27
+[0m[35m	Valore letto da buffer: 2
+[35m		Valore inserito nell'array: 2
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 12 72
+[0m[34m	GCD calcolato: 12
+[0m[35m	Valore letto da buffer: 3
+[35m		Valore inserito nell'array: 3
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 56 44
+[0m[34m	GCD calcolato: 4
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34m	Coppia letta da file: 29 90
+[0m[34m	GCD calcolato: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34mProduttore sta per finire[0m
+[35m	Valore letto da buffer: 3
+[35m		Valore inserito nell'array: 3
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[34m	GCD scritto nel buffer[0m
+[34mProduttore sta per finire[0m
+[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 2
+[35m		Valore inserito nell'array: 2
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 2
+[35m		Valore inserito nell'array: 2
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 2
+[35m		Valore inserito nell'array: 2
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 5
+[35m		Valore inserito nell'array: 5
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 2
+[35m		Valore inserito nell'array: 2
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 3
+[35m		Valore inserito nell'array: 3
+[0m[35m	Valore letto da buffer: 3
+[35m		Valore inserito nell'array: 3
+[0m[35m	Valore letto da buffer: 12
+[35m		Valore inserito nell'array: 12
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 1
+[35m		Valore inserito nell'array: 1
+[0m[35m	Valore letto da buffer: 4
+[35m		Valore inserito nell'array: 4
+[0m[35m	Valore letto da buffer: 27
+[35m		Valore inserito nell'array: 27
+[0m[35m	Valore letto da buffer: 12
+[35m		Valore inserito nell'array: 12
+[0m[34m	GCD scritto nel buffer[0m
+[34mProduttore sta per finire[0m
+[34m	GCD scritto nel buffer[0m
+[34mProduttore sta per finire[0m
+[33mTutti i produttori hanno terminato
+[33mValori di terminazione scritti[0m
+[35m	Valore letto da buffer: -1
+[35mConsumatore sta per finire[0m
+[33m4 su 4 thread produttori hanno finito. GCD trovati: 100
+[0m[33m--- ARRAY ORDINATO ---[0m
+[33m1)	1
+[0m[33m2)	1
+[0m[33m3)	1
+[0m[33m4)	1
+[0m[33m5)	1
+[0m[33m6)	1
+[0m[33m7)	1
+[0m[33m8)	1
+[0m[33m9)	1
+[0m[33m10)	1
+[0m[33m11)	1
+[0m[33m12)	1
+[0m[33m13)	1
+[0m[33m14)	1
+[0m[33m15)	1
+[0m[33m16)	1
+[0m[33m17)	1
+[0m[33m18)	1
+[0m[33m19)	1
+[0m[33m20)	1
+[0m[33m21)	1
+[0m[33m22)	1
+[0m[33m23)	1
+[0m[33m24)	1
+[0m[33m25)	1
+[0m[33m26)	1
+[0m[33m27)	1
+[0m[33m28)	1
+[0m[33m29)	1
+[0m[33m30)	1
+[0m[33m31)	1
+[0m[33m32)	1
+[0m[33m33)	1
+[0m[33m34)	1
+[0m[33m35)	1
+[0m[33m36)	1
+[0m[33m37)	1
+[0m[33m38)	1
+[0m[33m39)	1
+[0m[33m40)	1
+[0m[33m41)	1
+[0m[33m42)	1
+[0m[33m43)	1
+[0m[33m44)	1
+[0m[33m45)	1
+[0m[33m46)	1
+[0m[33m47)	1
+[0m[33m48)	1
+[0m[33m49)	1
+[0m[33m50)	1
+[0m[33m51)	1
+[0m[33m52)	1
+[0m[33m53)	1
+[0m[33m54)	1
+[0m[33m55)	1
+[0m[33m56)	1
+[0m[33m57)	1
+[0m[33m58)	1
+[0m[33m59)	1
+[0m[33m60)	1
+[0m[33m61)	1
+[0m[33m62)	1
+[0m[33m63)	1
+[0m[33m64)	1
+[0m[33m65)	1
+[0m[33m66)	1
+[0m[33m67)	1
+[0m[33m68)	1
+[0m[33m69)	1
+[0m[33m70)	2
+[0m[33m71)	2
+[0m[33m72)	2
+[0m[33m73)	2
+[0m[33m74)	2
+[0m[33m75)	2
+[0m[33m76)	2
+[0m[33m77)	2
+[0m[33m78)	2
+[0m[33m79)	2
+[0m[33m80)	2
+[0m[33m81)	3
+[0m[33m82)	3
+[0m[33m83)	3
+[0m[33m84)	3
+[0m[33m85)	3
+[0m[33m86)	3
+[0m[33m87)	4
+[0m[33m88)	4
+[0m[33m89)	5
+[0m[33m90)	5
+[0m[33m91)	6
+[0m[33m92)	8
+[0m[33m93)	9
+[0m[33m94)	12
+[0m[33m95)	12
+[0m[33m96)	16
+[0m[33m97)	17
+[0m[33m98)	27
+[0m[33m99)	27
+[0m[33m100)	32
+[0m
