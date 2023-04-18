@@ -16,7 +16,7 @@ LDLIBS=-lm -lrt -lpthread -pthread
 #  $^ viene sostituito con tutti i prerequisiti
 
 # elenco degli eseguibili da creare
-EXECS=main.out
+EXECS=raddoppia.out
 
 # primo target: gli eseguibili sono precondizioni
 # quindi verranno tutti creati
